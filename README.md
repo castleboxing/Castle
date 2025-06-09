@@ -1,1 +1,626 @@
-# Castle
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آکادمی بوکس قلعه | باشگاه حرفه‌ای بوکس</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            padding-top: 60px; /* فاصله برای هدر فیکس شده */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* استایل هدر بهینه‌سازی شده */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 60px; /* ارتفاع ثابت برای هدر */
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .logo-container {
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 45px; /* ارتفاع ثابت برای لوگو */
+            width: auto;
+            border: 2px solid #000;
+            padding: 3px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        /* استایل بخش‌ها */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #000;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #000;
+        }
+        
+        /* استایل فروشگاه */
+        .shop {
+            background: #f9f9f9;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s;
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: #e74c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+        }
+        
+        /* استایل گالری */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        /* استایل تبلیغات */
+        .ad-section {
+            background: #f0f0f0;
+        }
+        
+        .ads-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .ad-banner {
+            flex: 1;
+            min-width: 300px;
+            height: 250px;
+            background: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .ad-banner:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .ad-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        /* استایل تماس */
+        .contact {
+            background: #000;
+            color: #fff;
+        }
+        
+        .contact .section-title {
+            color: #fff;
+        }
+        
+        .contact .section-title::after {
+            background: #fff;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .map {
+            width: 100%;
+            height: 100%;
+            background: url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/51.388973,35.6892,12,0/600x300?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw') center/cover no-repeat;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .social-link.telegram:hover {
+            background: #0088cc;
+            color: white;
+        }
+        
+        .social-link.whatsapp:hover {
+            background: #25D366;
+            color: white;
+        }
+        
+        .social-link.instagram:hover {
+            background: #e1306c;
+            color: white;
+        }
+        
+        .social-link.rubika:hover {
+            background: #00a8ff;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .contact-item i {
+            margin-left: 15px;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* استایل فوتر */
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 16px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .footer-logo {
+            height: 40px;
+            margin: 0 auto;
+            filter: invert(1);
+        }
+        
+        /* انیمیشن‌ها */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .logo {
+                height: 40px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .contact-item {
+                font-size: 16px;
+            }
+            
+            body {
+                padding-top: 50px;
+            }
+            
+            header {
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                height: 35px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .product-title {
+                font-size: 18px;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر و لوگو بهینه‌سازی شده -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://i.ibb.co/5YvXJ5k/boxing-logo-small.png" alt="آکادمی بوکس قلعه" class="logo">
+                </div>
+                <div class="contact-badge">
+                    <a href="tel:+982112345678" class="btn phone-btn">
+                        <i class="fas fa-phone"></i> تماس با ما
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- بخش فروشگاه -->
+    <section class="section shop">
+        <div class="container">
+            <h2 class="section-title animate">فروشگاه لوازم ورزشی</h2>
+            <div class="products">
+                <div class="product-card animate delay-1">
+                    <img src="https://i.ibb.co/1bJ0mC2/boxing-gloves.jpg" alt="دستکش بوکس" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">دستکش بوکس حرفه‌ای</h3>
+                        <p class="product-price">650,000 تومان</p>
+                        <a href="https://wa.me/989121234567?text=سلام، من محصول دستکش بوکس حرفه‌ای را به قیمت 650,000 تومان می‌خواهم سفارش دهم." class="btn">
+                            <i class="fab fa-whatsapp"></i> ثبت سفارش در واتساپ
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card animate delay-2">
+                    <img src="https://i.ibb.co/1f6GQvP/punching-bag.jpg" alt="کیسه بوکس" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">کیسه بوکس سنگین</h3>
+                        <p class="product-price">1,200,000 تومان</p>
+                        <a href="https://wa.me/989121234567?text=سلام، من محصول کیسه بوکس سنگین را به قیمت 1,200,000 تومان می‌خواهم سفارش دهم." class="btn">
+                            <i class="fab fa-whatsapp"></i> ثبت سفارش در واتساپ
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card animate delay-1">
+                    <img src="https://i.ibb.co/0c6J6qK/shoes.jpg" alt="کفش بوکس" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">کفش بوکس حرفه‌ای</h3>
+                        <p class="product-price">850,000 تومان</p>
+                        <a href="https://wa.me/989121234567?text=سلام، من محصول کفش بوکس حرفه‌ای را به قیمت 850,000 تومان می‌خواهم سفارش دهم." class="btn">
+                            <i class="fab fa-whatsapp"></i> ثبت سفارش در واتساپ
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card animate delay-2">
+                    <img src="https://i.ibb.co/2ZcWtLq/protective.jpg" alt="محافظ" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">محافظ سر و دندان</h3>
+                        <p class="product-price">320,000 تومان</p>
+                        <a href="https://wa.me/989121234567?text=سلام، من محصول محافظ سر و دندان را به قیمت 320,000 تومان می‌خواهم سفارش دهم." class="btn">
+                            <i class="fab fa-whatsapp"></i> ثبت سفارش در واتساپ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- گالری تصاویر -->
+    <section class="section gallery">
+        <div class="container">
+            <h2 class="section-title animate">گالری آکادمی بوکس قلعه</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item animate delay-1">
+                    <img src="https://i.ibb.co/j4XyVz6/gym1.jpg" alt="سالن تمرین" class="gallery-img">
+                </div>
+                <div class="gallery-item animate delay-2">
+                    <img src="https://i.ibb.co/vwM3sLb/gym2.jpg" alt="تمرین گروهی" class="gallery-img">
+                </div>
+                <div class="gallery-item animate delay-3">
+                    <img src="https://i.ibb.co/7z0pG4k/gym3.jpg" alt="مسابقات" class="gallery-img">
+                </div>
+                <div class="gallery-item animate delay-1">
+                    <img src="https://i.ibb.co/XYc1c4q/gym4.jpg" alt="مربی‌گری" class="gallery-img">
+                </div>
+                <div class="gallery-item animate delay-2">
+                    <img src="https://i.ibb.co/9pBmZ8Y/gym5.jpg" alt="تمرین انفرادی" class="gallery-img">
+                </div>
+                <div class="gallery-item animate delay-3">
+                    <img src="https://i.ibb.co/0KzF4Q8/gym6.jpg" alt="تجهیزات" class="gallery-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش تبلیغات -->
+    <section class="section ad-section">
+        <div class="container">
+            <h2 class="section-title animate">تبلیغات</h2>
+            <div class="ads-container">
+                <div class="ad-banner animate delay-1">
+                    <img src="https://i.ibb.co/5K4mFJc/ad1.jpg" alt="تبلیغات ورزشی" class="ad-img">
+                </div>
+                <div class="ad-banner animate delay-2">
+                    <img src="https://i.ibb.co/0FQHx2B/ad2.jpg" alt="مکمل ورزشی" class="ad-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش تماس -->
+    <section class="section contact">
+        <div class="container">
+            <h2 class="section-title animate">تماس با ما</h2>
+            <div class="contact-container">
+                <div class="map-container animate delay-1">
+                    <div class="map"></div>
+                </div>
+                <div class="contact-details animate delay-2">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تهران، خیابان آزادی، کوچه قلعه، پلاک ۱۲</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ghaleboxing.com</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://t.me/ghaleboxing" class="social-link telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://wa.me/989121234567" class="social-link whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://instagram.com/ghaleboxing" class="social-link instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://rubika.ir/ghaleboxing" class="social-link rubika">
+                            <i class="fas fa-basketball-ball"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="https://i.ibb.co/5YvXJ5k/boxing-logo-small.png" alt="آکادمی بوکس قلعه" class="footer-logo">
+                <p>تمامی حقوق برای آکادمی بوکس قلعه محفوظ است © ۱۴۰۳</p>
+                <p>طراحی و توسعه با ❤️ برای علاقه‌مندان به ورزش بوکس</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // اسکریپت برای انیمیشن‌ها و افکت‌های تعاملی
+        document.addEventListener('DOMContentLoaded', function() {
+            // مشاهده عناصر برای انیمیشن
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.section-title, .product-card, .gallery-item, .ad-banner, .map-container, .contact-details').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // افکت ضربه خوردن برای دکمه‌ها
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    /
